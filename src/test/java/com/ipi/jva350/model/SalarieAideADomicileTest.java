@@ -1,6 +1,6 @@
 package com.ipi.jva350.model;
 
-import net.bytebuddy.asm.Advice;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,5 +44,28 @@ public class SalarieAideADomicileTest {
         boolean droit = salarie.aLegalementDroitADesCongesPayes();
         // Then : Comparaison du résultat de la méthode ou de l'état final avec celui attendu
         Assertions.assertEquals(false, droit);
+    }
+
+    @ParameterizedTest(name = "le test échoue lorsque")
+    @CsvSource({
+            "'2026-06-01', '2026-06-30', 26",
+            "'2026-07-01', '2026-07-31', 27"
+    })
+    public void testCalculeJoursDeCongeDecomptesPourPlage(String debut, String fin, int expected) {
+        /* Dans les exemples sur le site de pagesjaunes, on calcule le nombre de jours.
+        Cette méthode retourne une LinkedHashSet des jours de congé de façon ordonnée.
+        Pour ce test, on va donc compter le nombre de jours dans la liste.
+        On peut aussi reprendre les mêmes exemples. */
+
+        // Given
+        SalarieAideADomicile salarie = new SalarieAideADomicile();
+
+        // When
+        LinkedHashSet liste = salarie.calculeJoursDeCongeDecomptesPourPlage(
+                LocalDate.parse(debut),
+                LocalDate.parse(fin));
+
+        // Then
+        Assertions.assertEquals(expected, liste.size());
     }
 }
