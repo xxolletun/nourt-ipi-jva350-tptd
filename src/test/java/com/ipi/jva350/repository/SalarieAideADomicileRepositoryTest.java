@@ -14,11 +14,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class SalarieAideADomicileRepositoryTest {
 
     @Autowired
-    private SalarieAideADomicileRepository salarieRepository;
+    SalarieAideADomicileRepository salarieRepository;
 
     @BeforeEach
     void before() {
         salarieRepository.deleteAll();
+        SalarieAideADomicile Carolinetousletemps = new SalarieAideADomicile();
+        Carolinetousletemps.setNom("Carolinetousletemps");
+        salarieRepository.save(Carolinetousletemps);
     }
 
     @Test

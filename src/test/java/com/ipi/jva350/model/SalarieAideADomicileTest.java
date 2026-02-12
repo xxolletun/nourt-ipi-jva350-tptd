@@ -20,7 +20,7 @@ public class SalarieAideADomicileTest {
         // When : Comportement à tester, en pratique une (ou des) méthode(s) à exécuter
         boolean droit = salarie.aLegalementDroitADesCongesPayes();
         // Then : Comparaison du résultat de la méthode ou de l'état final avec celui attendu
-        Assertions.assertEquals(true, droit);
+        Assertions.assertTrue(droit);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class SalarieAideADomicileTest {
         // When : Comportement à tester, en pratique une (ou des) méthode(s) à exécuter
         boolean droit = salarie.aLegalementDroitADesCongesPayes();
         // Then : Comparaison du résultat de la méthode ou de l'état final avec celui attendu
-        Assertions.assertEquals(false, droit);
+        Assertions.assertFalse(droit);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SalarieAideADomicileTest {
         // When : Comportement à tester, en pratique une (ou des) méthode(s) à exécuter
         boolean droit = salarie.aLegalementDroitADesCongesPayes();
         // Then : Comparaison du résultat de la méthode ou de l'état final avec celui attendu
-        Assertions.assertEquals(false, droit);
+        Assertions.assertFalse(droit);
     }
 
     @ParameterizedTest(name = "le test échoue lorsque")
@@ -61,7 +61,7 @@ public class SalarieAideADomicileTest {
         SalarieAideADomicile salarie = new SalarieAideADomicile();
 
         // When
-        LinkedHashSet liste = salarie.calculeJoursDeCongeDecomptesPourPlage(
+        LinkedHashSet<LocalDate> liste = salarie.calculeJoursDeCongeDecomptesPourPlage(
                 LocalDate.parse(debut),
                 LocalDate.parse(fin));
 
