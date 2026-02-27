@@ -21,6 +21,7 @@ public class SalarieAideADomicileService {
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     public SalarieAideADomicileService() {
+        // default constructor
     }
 
     /**
