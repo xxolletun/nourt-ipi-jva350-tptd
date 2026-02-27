@@ -1,6 +1,7 @@
 package com.ipi.jva350.repository;
 
 import com.ipi.jva350.model.SalarieAideADomicile;
+import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,20 @@ public class SalarieAideADomicileRepositoryTest {
     @Test
     void testFindByNomNonPresent(){
         SalarieAideADomicile caroline = salarieRepository.findByNom("Caroline");
-
         Assertions.assertNull(caroline);
+    }
+
+    // TP
+    @Test
+    void testPartCongesPrisTotauxAnneeNMoins1(){
+        SalarieAideADomicile salarie = new SalarieAideADomicile();
+        salarie.setCongesPayesPrisAnneeNMoins1(30);
+        salarie.setCongesPayesAcquisAnneeNMoins1(19);
+        salarieRepository.save(salarie);
+        //sum(congesPayesPrisAnneeNMoins1)/sum(congesPayesAcquisAnneeNMoins1
+        Double conges = salarie.getCongesPayesPrisAnneeNMoins1()/salarie.getCongesPayesAcquisAnneeNMoins1();
+        Double result = salarieRepository.partCongesPrisTotauxAnneeNMoins1();
+        Assertions.assertEquals(conges, result);
+        System.out.println("Conges : " + conges + " - Result : " + result);
     }
 }
