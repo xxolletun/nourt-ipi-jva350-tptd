@@ -46,7 +46,7 @@ public class SalarieAideADomicileTest {
         Assertions.assertFalse(droit);
     }
 
-    @ParameterizedTest(name = "le test échoue lorsque")
+    @ParameterizedTest
     @CsvSource({
             "'2026-06-01', '2026-06-30', 26",
             "'2026-07-01', '2026-07-31', 27"
