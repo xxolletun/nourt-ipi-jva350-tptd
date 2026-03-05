@@ -43,12 +43,13 @@ public class EntrepriseTest {
     @ParameterizedTest(name = "la date du {0} ne correspond pas à un jour férié.")
     @CsvSource({
             "'2026-02-05', '2026-01-02', '2026-04-20', true", // normal
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date < debut
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date > fin
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date = debut
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date = fin
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date = debut = fin
-            "'2026-02-05', '2026-01-02', '2026-04-20', true", // date!= (debut = fin)
+            "'2026-02-05', '2026-02-22', '2026-04-20', false", // date < debut
+            "'2026-02-05', '2026-01-02', '2026-01-20', false", // date > fin
+            "'2026-02-05', '2026-02-05', '2026-04-20', true", // date = debut
+            "'2026-02-05', '2026-01-02', '2026-02-05', true", // date = fin
+            "'2026-02-05', '2026-02-05', '2026-02-05', true", // date = debut = fin
+            "'2026-02-05', '2026-01-02', '2026-01-02', false", // date > (debut = fin)
+            "'2026-02-05', '2026-04-20', '2026-04-20', false", // date < (debut = fin)
     })
     public void testEstDansPlageCorrige(String date, String debut, String fin, boolean expected) {
         boolean resultat = Entreprise.estDansPlage(date,debut,fin);
