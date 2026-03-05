@@ -154,13 +154,8 @@ public final class Entreprise {
         if (result) {
             return fin.isAfter(d) || fin.equals(d);
         }
-
-        // Si les trois dates sont identiques
-        if (debut.equals(d) && fin.equals(d)) {
-            result = true;
-        }
-
-        return result;
+        // Si les trois dates sont identiques sinon false
+        return debut.equals(d) && fin.equals(d);
     }
 
 }
