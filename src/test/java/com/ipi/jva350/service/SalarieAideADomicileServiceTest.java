@@ -1,5 +1,8 @@
 package com.ipi.jva350.service;
 
+import com.ipi.jva350.exception.SalarieException;
+import com.ipi.jva350.model.SalarieAideADomicile;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +16,65 @@ import java.time.LocalDate;
 public class SalarieAideADomicileServiceTest {
 
     @Autowired
-    public SalarieAideADomicileService salarieService;
+    public SalarieAideADomicileService salarieAideADomicileService; //salarieService;
 
     @Test
-    public void testCalculeLimiteEntrepriseCongesPermis(){
+    void clotureMoisJoursTravailles() throws SalarieException {
+        // Given
+        SalarieAideADomicile aide = new SalarieAideADomicile();
+        double joursTravaillesInitial = 10;
+        aide.setJoursTravaillesAnneeN(joursTravaillesInitial);
+        aide.setMoisEnCours(LocalDate.parse("2022-11-01"));
+        double joursTravailles = 20;
+        // When
+        salarieAideADomicileService.clotureMois(aide, joursTravailles);
+        // Then
+        // ou aide = repo.findByNom(...)
+        Assertions.assertEquals(joursTravaillesInitial + joursTravailles,
+                aide.getJoursTravaillesAnneeN());
+    }
 
-        salarieService.calculeLimiteEntrepriseCongesPermis(
-                LocalDate.of(2026,2,1),
-                7,
-                LocalDate.of(2025,11,28),
-                LocalDate.of(2026,1,4),
-                LocalDate.of(2026,8,5));
+    @Test
+    void clotureMoisCongesPayesAcquis() throws SalarieException {
+        // Given
+        SalarieAideADomicile aide = new SalarieAideADomicile();
+        double congesPayesAcquisInitial = 10;
+        aide.setCongesPayesAcquisAnneeN(congesPayesAcquisInitial);
+        aide.setMoisEnCours(LocalDate.parse("2022-11-01"));
+        double joursTravailles = 20;
+        // When
+        salarieAideADomicileService.clotureMois(aide, joursTravailles);
+        // Then
+        // ou aide = repo.findByNom(...)
+        Assertions.assertEquals(congesPayesAcquisInitial + SalarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS,
+                aide.getCongesPayesAcquisAnneeN());
+    }
+
+    @Test
+    public void testCalculeLimiteEntrepriseCongesPermis() throws SalarieException {
+
+        SalarieAideADomicile salarie = new SalarieAideADomicile();
+
+        double congesPayesAcquisInitial = 18;
+        salarie.setCongesPayesAcquisAnneeNMoins1(congesPayesAcquisInitial);
+        salarie.setMoisEnCours(LocalDate.parse("2026-01-01"));
+        salarie.setMoisDebutContrat(LocalDate.parse("2025-10-01"));
+        LocalDate premierJourDeConge = LocalDate.of(2025,11,30);
+        LocalDate dernierJourDeConge = LocalDate.of(2025,12,30);
+
+        double joursTravailles = 20;
+
+        salarieAideADomicileService.clotureMois(salarie, joursTravailles);
+
+        long limite;
+        limite = salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(
+                salarie.getMoisEnCours(),
+                salarie.getCongesPayesAcquisAnneeNMoins1(),
+                salarie.getMoisDebutContrat(),
+                premierJourDeConge,
+                dernierJourDeConge
+        );
+        Assertions.assertEquals(Math.round(salarie.getCongesPayesRestantAnneeNMoins1() - salarie.getCongesPayesAcquisAnneeN()),
+                limite);
     }
 }
