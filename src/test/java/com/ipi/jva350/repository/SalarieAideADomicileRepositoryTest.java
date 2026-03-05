@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class SalarieAideADomicileRepositoryTest {
 
     @Autowired
-    SalarieAideADomicileRepository salarieRepository;
+    private SalarieAideADomicileRepository salarieRepository;
 
     @BeforeEach
     void before() {
