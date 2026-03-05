@@ -149,19 +149,14 @@ public final class Entreprise {
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
 
         // 1) Si la date du début est avant la date ou si c'est la même
-        boolean result = debut.isBefore(d);
+        boolean result = debut.isBefore(d) || debut.equals(d) ;
         // 2) Si la date de fin est apres la date ou si c'est la même
         if (result) {
-            return fin.isAfter(d);
+            return fin.isAfter(d) || fin.equals(d);
         }
 
         // Si les trois dates sont identiques
         if (debut.equals(d) && fin.equals(d)) {
-            result = true;
-        }
-
-        // Si 2 parmi les trois sont identiques
-        if (debut.equals(d) || fin.equals(d)) {
             result = true;
         }
 
