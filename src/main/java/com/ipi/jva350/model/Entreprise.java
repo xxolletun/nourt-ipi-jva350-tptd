@@ -162,7 +162,7 @@ public final class Entreprise {
 
         // Si 2 parmi les trois sont identiques
         if (debut.equals(d) || fin.equals(d)) {
-            result = false;
+            result = true;
         }
 
         return result;
