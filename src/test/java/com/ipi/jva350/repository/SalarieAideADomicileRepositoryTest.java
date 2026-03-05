@@ -40,17 +40,15 @@ public class SalarieAideADomicileRepositoryTest {
         Assertions.assertNull(caroline);
     }
 
-    // TP
+    // TP EVALUATION
     @Test
     void testPartCongesPrisTotauxAnneeNMoins1(){
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setCongesPayesPrisAnneeNMoins1(30);
         salarie.setCongesPayesAcquisAnneeNMoins1(19);
         salarieRepository.save(salarie);
-        //sum(congesPayesPrisAnneeNMoins1)/sum(congesPayesAcquisAnneeNMoins1
         Double conges = salarie.getCongesPayesPrisAnneeNMoins1()/salarie.getCongesPayesAcquisAnneeNMoins1();
         Double result = salarieRepository.partCongesPrisTotauxAnneeNMoins1();
         Assertions.assertEquals(conges, result);
-        System.out.println("Conges : " + conges + " - Result : " + result);
     }
 }
