@@ -52,7 +52,10 @@ public class EntrepriseTest {
             "'2026-02-05', '2026-04-20', '2026-04-20', false", // date < (debut = fin)
     })
     public void testEstDansPlageCorrige(String date, String debut, String fin, boolean expected) {
-        boolean resultat = Entreprise.estDansPlage(date,debut,fin);
+        boolean resultat = Entreprise.estDansPlage(
+                LocalDate.parse(date),
+                LocalDate.parse(debut),
+                LocalDate.parse(fin));
         Assertions.assertEquals(expected, resultat);
     }
 }

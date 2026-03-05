@@ -156,12 +156,12 @@ public final class Entreprise {
         }
 
         // Si les trois dates sont identiques
-        if (debut == d && fin == d) {
+        if (debut.equals(d) && fin.equals(d)) {
             result = true;
         }
 
         // Si 2 parmi les trois sont identiques
-        if (debut == d || fin == d) {
+        if (debut.equals(d) || fin.equals(d)) {
             result = false;
         }
 
