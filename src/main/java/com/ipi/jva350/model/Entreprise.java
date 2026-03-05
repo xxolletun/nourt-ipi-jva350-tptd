@@ -147,8 +147,25 @@ public final class Entreprise {
      * @return
      */
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException("à implémenter en TDD !");
+
+        // 1) Si la date du début est avant la date ou si c'est la même
+        boolean result = debut.isBefore(d);
+        // 2) Si la date de fin est apres la date ou si c'est la même
+        if (result) {
+            return fin.isAfter(d);
+        }
+
+        // Si les trois dates sont identiques
+        if (debut == d && fin == d) {
+            result = true;
+        }
+
+        // Si 2 parmi les trois sont identiques
+        if (debut == d || fin == d) {
+            result = false;
+        }
+
+        return result;
     }
 
 }
